@@ -1,0 +1,317 @@
+/* style.css — PDEU Hostel Management System (Full-Screen Wide Campus Theme — Flat / No Shadows) */
+:root {
+    --bg-outer: #EEF2F6;
+    --bg-shape: #DBEAFE;
+    --browser-taupe: #1E3A8A;
+    --browser-cream: #F8FAFC;
+    --browser-card: #FFFFFF;
+    --mustard: #2563EB;
+    --mustard-light: #DBEAFE;
+    --espresso: #0F172A;
+    --espresso-muted: #475569;
+    --border-dark: #CBD5E1;
+    --green-ok: #059669;
+    --red-err: #DC2626;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+html {
+    /* Scale up base rem size so all text, padding, icons, and cards are noticeably larger and fill wide screens */
+    font-size: 18px;
+}
+
+@media (max-width: 1024px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    background-color: var(--bg-outer);
+    color: var(--espresso);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Heading Typography */
+.retro-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.02em;
+    color: var(--espresso);
+    text-transform: uppercase;
+}
+
+/* Subtle Campus Background Accents */
+.bg-blob-top-right {
+    position: fixed;
+    top: -110px;
+    right: -110px;
+    width: 420px;
+    height: 420px;
+    background-color: #DBEAFE;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.65;
+}
+.bg-blob-bottom-left {
+    position: fixed;
+    bottom: -110px;
+    left: -90px;
+    width: 400px;
+    height: 400px;
+    background-color: #E0E7FF;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+/* Main Portal Window Container (Expands to use full screen space, Zero Shadows) */
+.browser-window {
+    background-color: var(--browser-cream);
+    border: 1.5px solid var(--border-dark);
+    border-radius: 18px;
+    box-shadow: none !important;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100vh - 24px);
+}
+
+/* Top Window Tab Bar */
+.browser-top-tab-bar {
+    background-color: #0F172A;
+    height: 52px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    border-bottom: 1.5px solid #1E293B;
+    position: relative;
+}
+
+.browser-tab-left {
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 12px;
+    color: #F8FAFC;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+/* Top-Right Window Controls */
+.browser-window-controls {
+    background-color: #1E293B;
+    border-left: 1.5px solid #334155;
+    padding: 0 28px 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+    margin-left: -12px;
+    color: #F8FAFC;
+}
+
+/* Address Bar Toolbar */
+.browser-toolbar {
+    background-color: #1E3A8A;
+    padding: 14px 28px;
+    border-bottom: 1.5px solid var(--border-dark);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.circle-icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    border: 1.5px solid #CBD5E1;
+    color: #0F172A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    flex-shrink: 0;
+    box-shadow: none !important;
+}
+.circle-icon-btn:hover {
+    background-color: #2563EB;
+    color: #FFFFFF;
+    border-color: #2563EB;
+}
+
+.url-address-pill {
+    flex: 1;
+    background-color: #FFFFFF;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 999px;
+    height: 46px;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+/* Cards & Buttons (Flat & Enlarged) */
+.retro-card {
+    background-color: var(--browser-card);
+    border: 1.5px solid var(--border-dark);
+    border-radius: 16px;
+    box-shadow: none !important;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.retro-card-interactive:hover {
+    border-color: #2563EB;
+    background-color: #F8FAFC;
+    box-shadow: none !important;
+}
+
+.retro-btn-mustard {
+    background-color: #2563EB;
+    color: #FFFFFF;
+    border: 1.5px solid #1D4ED8;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: none !important;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+}
+.retro-btn-mustard:hover {
+    background-color: #1D4ED8;
+    color: #FFFFFF;
+    box-shadow: none !important;
+}
+
+.retro-btn-cream {
+    background-color: #FFFFFF;
+    color: #0F172A;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: none !important;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+.retro-btn-cream:hover, .retro-btn-cream.active-chip {
+    background-color: #EFF6FF;
+    color: #1D4ED8;
+    border-color: #2563EB;
+    font-weight: 700;
+    box-shadow: none !important;
+}
+
+/* Header Icon Badge */
+.sticker-badge {
+    background-color: #EFF6FF;
+    border: 1.5px solid #BFDBFE;
+    border-radius: 16px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: #2563EB;
+    box-shadow: none !important;
+    flex-shrink: 0;
+}
+
+/* Right Scrollbar Track */
+.retro-scrollbar-col {
+    width: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    user-select: none;
+}
+.retro-scroll-track {
+    width: 11px;
+    flex: 1;
+    margin: 10px 0;
+    background-color: #E2E8F0;
+    border: 1px solid #CBD5E1;
+    border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+}
+.retro-scroll-thumb {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    background-color: #2563EB;
+    border-radius: 999px;
+    transition: height 0.3s ease;
+}
+
+/* Bottom Footer Bar */
+.browser-footer-bar {
+    background-color: #F1F5F9;
+    border-top: 1.5px solid var(--border-dark);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.slide-number-pill {
+    background-color: #2563EB;
+    border: 1.5px solid #1D4ED8;
+    border-radius: 10px;
+    padding: 6px 22px;
+    font-weight: 800;
+    font-size: 1rem;
+    color: #FFFFFF;
+    box-shadow: none !important;
+}
+
+/* Input styling */
+.retro-input {
+    background-color: #FFFFFF;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: #0F172A;
+    font-size: 0.95rem;
+    outline: none;
+    box-shadow: none !important;
+}
+.retro-input:focus {
+    border-color: #2563EB;
+    background-color: #FFFFFF;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+    background: #94A3B8;
+    border-radius: 99px;
+}

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDEU Hostel Management System — DASHBOARD • HIGH RISE B2 BLOCK</title>
+    <!-- Tailwind CSS for responsive layout utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts matching the presentation's bold geometric headings & clean body -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard" class="p-2 sm:p-3 lg:p-4 flex flex-col items-center justify-center">
+
+    <!-- Background organic shapes matching PDF presentation -->
+    <div class="bg-blob-top-right"></div>
+    <div class="bg-blob-bottom-left"></div>
+
+    <!-- ===================================================================== -->
+    <!-- MAIN RETRO BROWSER WINDOW FRAME                                       -->
+    <!-- ===================================================================== -->
+    <div class="browser-window w-full max-w-[98vw] xl:max-w-[1840px]">
+
+        <!-- 1. TOP WINDOW TAB BAR WITH FOLDER CUTOUT & _ □ X -->
+        <div class="browser-top-tab-bar">
+            <div class="browser-tab-left">
+                <i class="fa-solid fa-building-columns text-[#60A5FA]"></i>
+                <span class="tracking-wide">FRETBOX HOSTEL MANAGEMENT SYSTEM — PDEU GANDHINAGAR</span>
+                <span class="hidden md:inline-block bg-[#DBEAFE] text-[#1E40AF] text-[10px] font-extrabold px-2 py-0.5 rounded border border-[#CBD5E1]">v3.11.16+236</span>
+            </div>
+            <div class="browser-window-controls">
+                <button onclick="showRetroToast('Window minimized to tray')" class="font-extrabold text-lg leading-none hover:text-[#64748B]" title="Minimize">_</button>
+                <button onclick="toggleFullWidth()" class="font-bold text-sm leading-none hover:text-[#64748B]" title="Maximize">□</button>
+                <a href="index.html" class="font-extrabold text-base leading-none hover:text-red-700 no-underline text-[#0F172A]" title="Reset to Home">✕</a>
+            </div>
+        </div>
+
+        <!-- 2. BROWSER ADDRESS BAR TOOLBAR -->
+        <div class="browser-toolbar">
+            <!-- Back & Forward History Buttons -->
+            <button onclick="historyBack()" class="circle-icon-btn" title="Back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button onclick="historyForward()" class="circle-icon-btn" title="Forward">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+            <!-- Dynamic URL / Global Search Bar -->
+            <div class="url-address-pill">
+                <div class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0F172A] truncate">
+                    <i class="fa-solid fa-lock text-[#64748B] text-xs"></i>
+                    <span id="browserUrlText" class="truncate">fretbox.pdeu.ac.in/hostel/dashboard</span>
+                </div>
+                <div class="flex items-center gap-2 flex-1 max-w-xs ml-auto">
+                    <input
+                        id="globalSearchInput"
+                        oninput="handleGlobalSearch(this.value)"
+                        type="text"
+                        placeholder="Search Leave, Complaints, Contacts..."
+                        class="w-full bg-transparent text-xs font-medium text-[#0F172A] placeholder-[#94A3B8] focus:outline-none border-l-2 border-[#CBD5E1] pl-3"
+                    >
+                </div>
+            </div>
+
+            <!-- Right Circular Action Buttons -->
+            <button onclick="focusGlobalSearch()" class="circle-icon-btn" title="Search Portal">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button onclick="showQrPassModal()" class="circle-icon-btn" title="Digital Gate Pass QR">
+                <i class="fa-solid fa-qrcode"></i>
+            </button>
+            <a href="quicklinks.html" class="circle-icon-btn no-underline" title="All Quick Links Menu">
+                <i class="fa-solid fa-bars"></i>
+            </a>
+        </div>
+
+        <!-- Instant Search Suggestions Dropdown -->
+        <div id="globalSearchDropdown" class="hidden bg-white border-b-2 border-[#CBD5E1] px-6 py-3 flex flex-wrap items-center gap-2"></div>
+
+        <!-- 3. PRIMARY NAVIGATION PILLS BAR (Multi-Page Links) -->
+        <div class="bg-[#F1F5F9] border-b-2 border-[#CBD5E1] px-5 sm:px-8 py-3.5 flex items-center justify-between gap-3 overflow-x-auto">
+            <div class="flex items-center gap-2">
+                <a href="index.html" id="nav-dashboard" class="retro-btn-mustard px-5 py-2.5 text-sm flex items-center gap-2 shrink-0 no-underline">
+                    <i class="fa-solid fa-house"></i> <span>01. Dashboard</span>
+                </a>
+                <a href="complaints.html" id="nav-complaints" class="retro-btn-cream px-5 py-2.5 text-sm flex items-center gap-2 shrink-0 no-underline">
+                    <i class="fa-solid fa-circle-exclamation"></i> <span>02. Complaints</span>
+                    <span id="navComplaintBadge" class="bg-[#1E3A8A] text-white text-[10px] px-1.5 py-0.2 rounded-full">1</span>
+                </a>
+                <a href="leaves.html" id="nav-leaves" class="retro-btn-cream px-5 py-2.5 text-sm flex items-center gap-2 shrink-0 no-underline">
+                    <i class="fa-solid fa-door-open"></i> <span>03. My Leaves</span>
+                </a>
+                <a href="dayouts.html" id="nav-dayouts" class="retro-btn-cream px-5 py-2.5 text-sm flex items-center gap-2 shrink-0 no-underline">
+                    <i class="fa-solid fa-sun"></i> <span>04. Day Outs</span>
+                </a>
+                <a href="contacts.html" id="nav-contacts" class="retro-btn-cream px-5 py-2.5 text-sm flex items-center gap-2 shrink-0 no-underline">
+                    <i class="fa-solid fa-address-book"></i> <span>05. Contacts (18)</span>
+                </a>
+                <a href="profile.html" id="nav-profile" class="retro-btn-cream px-5 py-2.5 text-sm flex items-center gap-2 shrink-0 no-underline">
+                    <i class="fa-solid fa-id-card"></i> <span>06. My Profile & Room</span>
+                </a>
+                <a href="quicklinks.html" id="nav-quicklinks" class="retro-btn-cream px-5 py-2.5 text-sm flex items-center gap-2 shrink-0 no-underline">
+                    <i class="fa-solid fa-grip"></i> <span>07. Quick Links</span>
+                </a>
+            </div>
+
+            <a href="emergency.html" class="bg-[#DC2626] hover:bg-red-700 text-white border-2 border-[#CBD5E1] rounded-xl px-5 py-2.5 text-sm font-bold flex items-center gap-2 shrink-0 no-underline">
+                <i class="fa-solid fa-triangle-exclamation"></i> <span>SOS Emergency</span>
+            </a>
+        </div>
+
+        <!-- 4. MAIN BROWSER VIEWPORT + RIGHT RETRO SCROLLBAR -->
+        <div class="flex-1 flex">
+
+            <!-- MAIN CONTENT AREA (Dedicated to this screen only) -->
+            <main class="flex-1 p-6 sm:p-10 lg:p-12 overflow-y-auto">
+                <section id="view-dashboard" class="space-y-7">
+                    <!-- Presentation-Style Section Header -->
+                    <div class="flex items-center justify-between gap-4 border-b-2 border-[#CBD5E1] pb-4">
+                        <div>
+                            <span class="text-xs font-extrabold uppercase tracking-widest text-[#64748B]">RESIDENT PORTAL OVERVIEW</span>
+                            <h1 class="retro-heading text-2xl sm:text-4xl font-extrabold mt-0.5">HOSTEL DASHBOARD</h1>
+                        </div>
+                        <!-- Hand-drawn style sticker icon from PDF -->
+                        <div class="sticker-badge" title="Student Resident ID">
+                            <i class="fa-solid fa-house-chimney-user"></i>
+                        </div>
+                    </div>
+
+                    <!-- Student Resident Identity Card (From Video Top Header) -->
+                    <div class="retro-card p-7 bg-[#F1F5F9] flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                        <div class="flex items-center gap-4">
+                            <!-- Avatar with 100% Completeness Pill -->
+                            <div class="relative shrink-0 cursor-pointer" onclick="navigateView('profile')">
+                                <div class="w-24 h-24 rounded-2xl border-2 border-[#CBD5E1] bg-[#DBEAFE] overflow-hidden flex items-center justify-center">
+                                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                                        <rect width="100" height="100" fill="#DBEAFE"/>
+                                        <path d="M15 100 C20 74, 80 74, 85 100" fill="#1E3A8A"/>
+                                        <rect x="41" y="62" width="18" height="16" fill="#d99b78"/>
+                                        <ellipse cx="50" cy="45" rx="20" ry="23" fill="#e0a382" stroke="#1E3A8A" stroke-width="2.5"/>
+                                        <path d="M30 40 C28 18, 72 18, 70 40 C65 26, 35 26, 30 40 Z" fill="#231F20"/>
+                                        <circle cx="42" cy="44" r="2.5" fill="#231F20"/>
+                                        <circle cx="58" cy="44" r="2.5" fill="#231F20"/>
+                                        <path d="M42 54 Q50 51 58 54" stroke="#231F20" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#059669] text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border-2 border-[#CBD5E1]">
+                                    100%
+                                </span>
+                            </div>
+
+                            <div>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">Rahul Singh</h2>
+                                    <span class="bg-[#DBEAFE] border-2 border-[#CBD5E1] text-xs font-extrabold px-2.5 py-0.5 rounded-lg">Roll No: 25bcp111</span>
+                                </div>
+                                <p class="text-xs sm:text-sm font-bold text-[#475569] mt-1">
+                                    <i class="fa-solid fa-door-closed mr-1"></i> 102 - HIGH RISE - B2 BLOCK (3S AC A) • FretBox ID: 2541
+                                </p>
+                                <p class="text-xs text-[#475569] mt-0.5">
+                                    <i class="fa-regular fa-envelope mr-1"></i> 25bcp111@sot.pdpu.ac.in &nbsp;|&nbsp; <i class="fa-solid fa-phone mr-1"></i> 9999999999
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 4 Primary Quick Action Buttons from Video -->
+                        <div class="grid grid-cols-4 gap-2.5 w-full md:w-auto">
+                            <button onclick="navigateView('leaves')" class="retro-card retro-card-interactive px-6 py-4 flex flex-col items-center justify-center text-center bg-white">
+                                <i class="fa-solid fa-door-open text-xl text-[#0F172A] mb-1"></i>
+                                <span class="text-xs font-extrabold">Leave</span>
+                            </button>
+                            <button onclick="navigateView('dayouts')" class="retro-card retro-card-interactive px-6 py-4 flex flex-col items-center justify-center text-center bg-white">
+                                <i class="fa-solid fa-sun text-xl text-[#d97706] mb-1"></i>
+                                <span class="text-xs font-extrabold">Dayout</span>
+                            </button>
+                            <button onclick="navigateView('complaints')" class="retro-card retro-card-interactive px-6 py-4 flex flex-col items-center justify-center text-center bg-white">
+                                <i class="fa-solid fa-screwdriver-wrench text-xl text-[#0F172A] mb-1"></i>
+                                <span class="text-xs font-extrabold">Complaint</span>
+                            </button>
+                            <button onclick="navigateView('quicklinks')" class="retro-card retro-card-interactive px-6 py-4 flex flex-col items-center justify-center text-center bg-[#DBEAFE]">
+                                <i class="fa-solid fa-grip text-xl text-[#0F172A] mb-1"></i>
+                                <span class="text-xs font-extrabold">See More</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TWO-COLUMN LAYOUT: ANNOUNCEMENTS & RECENT ACTIVITIES -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                        <!-- Announcements Column (7 cols) -->
+                        <div class="lg:col-span-7 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h3 class="retro-heading text-lg font-extrabold flex items-center gap-2">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-[#DBEAFE] border-2 border-[#CBD5E1] inline-block"></span>
+                                    ANNOUNCEMENTS
+                                </h3>
+                                <span class="text-xs font-bold text-[#475569]">Admin Circulars (3)</span>
+                            </div>
+
+                            <div id="dashboardAnnouncementsList" class="space-y-3">
+                                <!-- Populated via app.js -->
+                            </div>
+                        </div>
+
+                        <!-- Recent Activities & Important Contacts Column (5 cols) -->
+                        <div class="lg:col-span-5 space-y-6">
+                            <!-- Recent Activities -->
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="retro-heading text-lg font-extrabold flex items-center gap-2">
+                                        <span class="w-3.5 h-3.5 rounded-full bg-[#DBEAFE] border-2 border-[#CBD5E1] inline-block"></span>
+                                        RECENT ACTIVITIES
+                                    </h3>
+                                    <button onclick="navigateView('complaints')" class="text-xs font-extrabold underline">View All</button>
+                                </div>
+                                <div id="dashboardRecentActivity" class="space-y-3">
+                                    <!-- Populated via app.js -->
+                                </div>
+                            </div>
+
+                            <!-- Important Contacts Quick Strip -->
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="retro-heading text-lg font-extrabold flex items-center gap-2">
+                                        <span class="w-3.5 h-3.5 rounded-full bg-[#DBEAFE] border-2 border-[#CBD5E1] inline-block"></span>
+                                        IMPORTANT CONTACTS
+                                    </h3>
+                                    <button onclick="navigateView('contacts')" class="text-xs font-extrabold underline">Directory (18)</button>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2.5">
+                                    <button onclick="triggerCallToast('AMBULANCE PDEU', '9574002897')" class="retro-card retro-card-interactive p-3 text-center">
+                                        <div class="w-11 h-11 rounded-full bg-[#DBEAFE] border-2 border-[#CBD5E1] mx-auto flex items-center justify-center text-base">
+                                            <i class="fa-solid fa-truck-medical"></i>
+                                        </div>
+                                        <p class="text-[11px] font-extrabold mt-2 line-clamp-1">AMBULANCE PDEU</p>
+                                        <p class="text-[10px] text-[#475569] font-semibold">9574002897</p>
+                                    </button>
+                                    <button onclick="triggerCallToast('Campus Girls Hostel', '8980151389')" class="retro-card retro-card-interactive p-3 text-center">
+                                        <div class="w-11 h-11 rounded-full bg-[#DBEAFE] border-2 border-[#CBD5E1] mx-auto flex items-center justify-center text-base">
+                                            <i class="fa-solid fa-user-tie"></i>
+                                        </div>
+                                        <p class="text-[11px] font-extrabold mt-2 line-clamp-1">Campus Girls Hos...</p>
+                                        <p class="text-[10px] text-[#475569] font-semibold">8980151389</p>
+                                    </button>
+                                    <button onclick="triggerCallToast('UG HOSTEL', '8980131390')" class="retro-card retro-card-interactive p-3 text-center">
+                                        <div class="w-11 h-11 rounded-full bg-[#DBEAFE] border-2 border-[#CBD5E1] mx-auto flex items-center justify-center text-base">
+                                            <i class="fa-solid fa-building-user"></i>
+                                        </div>
+                                        <p class="text-[11px] font-extrabold mt-2 line-clamp-1">UG HOSTEL</p>
+                                        <p class="text-[10px] text-[#475569] font-semibold">8980131390</p>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </main>
+
+            <!-- DECORATIVE RETRO SCROLLBAR COLUMN -->
+            <aside class="retro-scrollbar-col border-l-2 border-[#CBD5E1] pr-3 hidden sm:flex">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-[#0F172A] hover:text-[#64748B]" title="Scroll Up">
+                    <i class="fa-solid fa-caret-up text-xl"></i>
+                </button>
+                <div class="retro-scroll-track">
+                    <div id="retroScrollThumb" class="retro-scroll-thumb" style="height: 25%;"></div>
+                </div>
+                <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" class="text-[#0F172A] hover:text-[#64748B]" title="Scroll Down">
+                    <i class="fa-solid fa-caret-down text-xl"></i>
+                </button>
+            </aside>
+
+        </div>
+
+        <!-- 5. BOTTOM MUSTARD FOOTER BAR -->
+        <footer class="browser-footer-bar">
+            <div class="flex items-center gap-3">
+                <div id="footerSlideNumber" class="slide-number-pill">01</div>
+                <span id="footerSlideTitle" class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#0F172A]">
+                    DASHBOARD • HIGH RISE B2 BLOCK
+                </span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold text-[#0F172A] hidden md:inline">Powered by FretBox UI • PDEU Hostel</span>
+                <button onclick="cycleNextSection()" class="w-10 h-10 rounded-full bg-[#1E3A8A] text-white flex items-center justify-center hover:scale-105 transition" title="Next Page">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 1: "MARK AS RESOLVED?" CONFIRMATION DIALOG                      -->
+    <!-- ===================================================================== -->
+    <div id="resolveDialogModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="retro-card max-w-md w-full p-8 text-center bg-white space-y-4">
+            <div class="w-12 h-12 rounded-full bg-[#DBEAFE] border-2 border-[#CBD5E1] mx-auto flex items-center justify-center text-xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="retro-heading text-xl font-extrabold">Mark as Resolved?</h3>
+            <p class="text-xs font-semibold text-[#475569]">
+                Are you sure you want to mark this Complaint as Resolved?
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button onclick="closeResolveDialog()" class="bg-[#DC2626] text-white border-2 border-[#CBD5E1] rounded-xl py-2.5 text-xs font-extrabold">
+                    No
+                </button>
+                <button onclick="confirmComplaintResolved()" class="bg-[#059669] text-white border-2 border-[#CBD5E1] rounded-xl py-2.5 text-xs font-extrabold">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 2: GENERIC DETAILS / QR / ANNOUNCEMENT MODAL                    -->
+    <!-- ===================================================================== -->
+    <div id="retroInfoModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="retro-card max-w-xl w-full p-8 bg-white space-y-4">
+            <div class="flex items-center justify-between border-b-2 border-[#CBD5E1] pb-3">
+                <h3 id="retroModalTitle" class="retro-heading text-lg font-extrabold">Details</h3>
+                <button onclick="closeRetroModal()" class="w-8 h-8 rounded-lg border-2 border-[#CBD5E1] font-extrabold">✕</button>
+            </div>
+            <div id="retroModalBody" class="text-xs sm:text-sm font-medium text-[#0F172A] whitespace-pre-line leading-relaxed"></div>
+            <button onclick="closeRetroModal()" class="retro-btn-mustard w-full py-2.5 text-xs">Close Window</button>
+        </div>
+    </div>
+
+    <!-- RETRO TOAST NOTIFICATION -->
+    <div id="retroToast" class="hidden fixed bottom-6 right-6 bg-[#1E3A8A] text-white border-2 border-[#60A5FA] px-5 py-3 rounded-xl text-xs font-extrabold z-50 flex items-center gap-2.5">
+        <i class="fa-solid fa-circle-check text-sm"></i>
+        <span id="retroToastText">success</span>
+    </div>
+
+    <!-- Shared Frontend Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
