@@ -1,0 +1,16 @@
+{
+  "name": "dormsync-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DormSync hostel management REST API for the MySQL 8 schema",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js", "check": "node --check server.js" },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "mysql2": "^3.11.5"
+  }
+}
